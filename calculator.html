@@ -241,7 +241,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Scrollbar styling */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -331,14 +330,12 @@
     </div>
 
     <script>
-        // Calculator state
         let currentOperand = '0';
         let previousOperand = '';
         let operation = undefined;
         let resetScreen = false;
         let calculationHistory = [];
         
-        // DOM elements
         const currentOperandElement = document.getElementById('current-operand');
         const previousOperandElement = document.getElementById('previous-operand');
         const historyPanel = document.getElementById('history-panel');
@@ -352,56 +349,49 @@
         const clearBtn = document.getElementById('clear-btn');
         const deleteBtn = document.getElementById('delete-btn');
         
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             updateDisplay();
             setupEventListeners();
         });
         
         function setupEventListeners() {
-            // Number buttons
+
             document.querySelectorAll('[data-number]').forEach(button => {
                 button.addEventListener('click', () => {
                     appendNumber(button.dataset.number);
                 });
             });
             
-            // Operator buttons
             document.querySelectorAll('[data-operation]').forEach(button => {
                 button.addEventListener('click', () => {
                     chooseOperation(button.dataset.operation);
                 });
             });
             
-            // Scientific function buttons
             document.querySelectorAll('[data-function]').forEach(button => {
                 button.addEventListener('click', () => {
                     executeFunction(button.dataset.function);
                 });
             });
             
-            // Constant buttons
             document.querySelectorAll('[data-constant]').forEach(button => {
                 button.addEventListener('click', () => {
                     appendConstant(button.dataset.constant);
                 });
             });
             
-            // Symbol buttons
             document.querySelectorAll('[data-symbol]').forEach(button => {
                 button.addEventListener('click', () => {
                     appendSymbol(button.dataset.symbol);
                 });
             });
             
-            // Special buttons
             equalsBtn.addEventListener('click', calculate);
             clearBtn.addEventListener('click', clearAll);
             deleteBtn.addEventListener('click', deleteLastChar);
             sciToggleBtn.addEventListener('click', toggleScientific);
             stdToggleBtn.addEventListener('click', toggleScientific);
             
-            // Keyboard support
             document.addEventListener('keydown', (e) => {
                 if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
                 if (e.key === '.') appendNumber('.');
@@ -415,10 +405,8 @@
                 if (e.key === 's') toggleScientific();
             });
             
-            // Theme toggle
             themeToggle.addEventListener('click', changeTheme);
             
-            // History toggle
             historyBtn.addEventListener('click', toggleHistory);
         }
         
@@ -497,7 +485,6 @@
                     return;
             }
             
-            // Add to history
             const historyEntry = `${previousOperand} ${currentOperand} = ${computation}`;
             calculationHistory.unshift(historyEntry);
             if (calculationHistory.length > 10) calculationHistory.pop();
@@ -578,7 +565,6 @@
                         return;
                 }
                 
-                // Add to history
                 const historyEntry = `${func}(${value}) = ${result}`;
                 calculationHistory.unshift(historyEntry);
                 if (calculationHistory.length > 10) calculationHistory.pop();
@@ -638,7 +624,6 @@
         function formatNumber(number) {
             if (number === 'Error') return number;
             
-            // Format with commas and handle decimals
             const parts = number.toString().split('.');
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             return parts.join('.');
@@ -650,7 +635,6 @@
         }
         
         function changeTheme() {
-            // Cycle through different pale English color schemes
             const themes = [
                 { cream: '#f8f4e9', sage: '#daded4', rose: '#d4c5c7', taupe: '#a39b8b', slate: '#3a3630' },
                 { cream: '#f7f3eb', sage: '#d1d9d1', rose: '#d8c8c6', taupe: '#9e9585', slate: '#38342e' },
